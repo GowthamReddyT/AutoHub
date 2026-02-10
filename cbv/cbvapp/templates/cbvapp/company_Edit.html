@@ -6,70 +6,52 @@
     .form-card {
         border-radius: 18px;
     }
-
     .form-card input,
-    .form-card select,
-    .form-card textarea {
-        border-radius: 10px !important;
+    .form-card select {
+        border-radius: 10px;
         padding: 10px;
-    }
-
-    .form-title {
-        font-weight: 600;
-        letter-spacing: 1px;
     }
 </style>
 
-
 <div class="container py-5">
-
     <div class="card form-card shadow-lg p-5 col-lg-6 col-md-8 mx-auto">
 
-        <h3 class="form-title text-center text-primary mb-4">
-            ✏ Edit Company Details
+        <h3 class="text-center text-primary mb-4">
+            ✏ Edit Company
         </h3>
-        {% if form.instance.logo %}
-            <div class="text-center mb-4">
-                <img src="{{ form.instance.logo.url }}"
-                     style="height:120px; object-fit:contain;"
-                     class="img-fluid">
-            </div>
+
+        {% if form.instance.image %}
+        <div class="text-center mb-4">
+            <img src="{{ form.instance.image.url }}"
+                 style="height:120px; object-fit:contain;"
+                 class="img-fluid">
+        </div>
         {% endif %}
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <div class="row g-3">
-
-                {% for field in form %}
-                    <div class="col-12">
-                        <label class="form-label fw-semibold">
-                            {{ field.label }}
-                        </label>
-                        {{ field }}
-                        <div class="text-danger small">
-                            {{ field.errors }}
-                        </div>
-                    </div>
-                {% endfor %}
-
-            </div>
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">{{ field.label }}</label>
+                    {{ field }}
+                    <div class="text-danger small">{{ field.errors }}</div>
+                </div>
+            {% endfor %}
 
             <div class="d-flex justify-content-between mt-4">
-
-                <a href="{% url 'companies' %}" class="btn btn-secondary px-4">
+                <a href="{% url 'detail' form.instance.id %}"
+                   class="btn btn-secondary">
                     ← Cancel
                 </a>
 
-                <button type="submit" class="btn btn-success px-4">
+                <button type="submit" class="btn btn-success">
                     💾 Update
                 </button>
-
             </div>
         </form>
 
     </div>
-
 </div>
 
 {% endblock %}

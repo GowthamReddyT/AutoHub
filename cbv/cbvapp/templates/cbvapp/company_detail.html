@@ -2,40 +2,68 @@
 {% block title %}Companies{% endblock %}
 {% block content %}
 
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
 
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .info-card, .product-card {
-            border: none;
-            border-radius: 14px;
-        }
-        .product-card {
-            position: relative;
-        }
-        .product-card:hover {
-            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
-            transform: translateY(-4px);
-            transition: 0.3s ease;
-        }
-        .product-img {
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-    </style>
+    .info-card, .product-card {
+        border: none;
+        border-radius: 14px;
+    }
 
+    .product-card {
+        position: relative;
+    }
+
+    .product-card:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        transform: translateY(-4px);
+        transition: 0.3s ease;
+    }
+
+    .product-img {
+        height: 180px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    /* 🔹 ACTION BUTTONS */
+    .action-btns {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    .action-btns a {
+        margin-left: 6px;
+    }
+</style>
 
 <div class="container py-5">
 
-    <!-- Header -->
-    <div class="d-flex align-items-center mb-4">
-        <i class="bi bi-buildings-fill fs-2 text-primary me-2"></i>
-        <h2 class="mb-0">{{ company_details.name }} Details</h2>
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-buildings-fill fs-2 text-primary me-2"></i>
+            <h2 class="mb-0">{{ company_details.name }} Details</h2>
+        </div>
+
+        <!-- 🔹 EDIT / DELETE -->
+        <div>
+            <a href="{% url 'edit_company' company_details.id %}"
+               class="btn btn-outline-warning btn-sm me-2">
+                <i class="bi bi-pencil-square"></i> Edit
+            </a>
+
+            <a href="{% url 'delete_company' company_details.id %}"
+               class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-trash"></i> Delete
+            </a>
+        </div>
     </div>
 
-    <!-- Company Info -->
+    <!-- COMPANY INFO -->
     <div class="card info-card shadow-sm mb-5">
         <div class="card-body">
             <div class="row text-center">
@@ -62,11 +90,11 @@
         </div>
     </div>
 
-    <!-- Products -->
+    <!-- PRODUCTS -->
     <div class="d-flex align-items-center mb-3">
-    <i class="bi bi-car-front-fill fs-3 text-primary me-2"></i>
-    <h4 class="mb-0">Products</h4>
-</div>
+        <i class="bi bi-car-front-fill fs-3 text-primary me-2"></i>
+        <h4 class="mb-0">Products</h4>
+    </div>
 
     <div class="row g-4">
         {% for product in company_details.product_set.all %}
@@ -74,9 +102,9 @@
             <div class="card product-card shadow-sm h-100">
                 <div class="card-body">
 
-                    <!-- PRODUCT IMAGE (ADDED) -->
                     {% if product.pro_img %}
-                        <img src="{{ product.pro_img.url }}" class="img-fluid product-img mb-3">
+                        <img src="{{ product.pro_img.url }}"
+                             class="img-fluid product-img mb-3">
                     {% else %}
                         <div class="d-flex justify-content-center align-items-center bg-light mb-3"
                              style="height:180px;border-radius:10px;">
@@ -114,8 +142,8 @@
                         <strong>Mileage:</strong> {{ product.Mileage }}
                     </p>
 
-                    <!-- INFO ICON (BOTTOM RIGHT) -->
-                    <a href="#"
+                    <!-- EMI ICON -->
+                    <a href="{% url 'emi_calculator' product.id %}"
                        class="position-absolute bottom-0 end-0 m-3 text-decoration-none">
                         <i class="bi bi-info-circle-fill fs-4 text-primary"></i>
                     </a>

@@ -25,3 +25,28 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+
+
+class Interior(models.Model):
+    product = models.ForeignKey(
+        Product,
+        related_name="interiors",
+        on_delete=models.CASCADE
+    )
+    image = models.ImageField(upload_to="products/interior/")
+
+    def __str__(self):
+        return f"{self.product.Product_Name} Interior"
+
+
+# ✅ NEW MODEL – Exterior
+class Exterior(models.Model):
+    product = models.ForeignKey(
+        Product,
+        related_name="exteriors",
+        on_delete=models.CASCADE
+    )
+    image = models.ImageField(upload_to="products/exterior/")
+
+    def __str__(self):
+        return f"{self.product.Product_Name} Exterior"
