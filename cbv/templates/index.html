@@ -21,8 +21,10 @@
     }
 </style>
 
-<!-- HERO SECTION -->
-<div class="hero p-5 mb-5 shadow">
+<div class="container">
+
+    <!-- HERO SECTION -->
+    <div class="hero p-5 mb-5 shadow">
     <div class="row align-items-center">
         <div class="col-md-7">
             <h1 class="fw-bold mb-3">
@@ -32,14 +34,6 @@
                 Explore top automobile companies, compare vehicles,
                 and calculate EMI instantly — all in one place.
             </p>
-
-            <!-- <a href="{% url 'list' %}" class="btn btn-light btn-lg me-2">
-                <i class="bi bi-buildings-fill"></i> View Companies
-            </a>
-
-            <a href="{% url 'add' %}" class="btn btn-outline-light btn-lg">
-                <i class="bi bi-plus-circle-fill"></i> Add Company
-            </a> -->
         </div>
 
         <div class="col-md-5 text-center">
@@ -48,47 +42,50 @@
     </div>
 </div>
 
-<!-- FEATURES -->
-<div class="row text-center g-4">
 
-    <div class="col-md-4">
-        <div class="card feature-card shadow-sm p-4 h-100">
-            <i class="bi bi-buildings fs-1 text-primary mb-3"></i>
-            <h5 class="fw-semibold">Company Management</h5>
-            <p class="text-muted">
-                Add, update, and manage automobile companies with ease.
-            </p>
+    <!-- FEATURES -->
+    <div class="row text-center g-4">
+
+        <div class="col-md-4">
+            <div class="card feature-card shadow-sm p-4 h-100">
+                <i class="bi bi-buildings fs-1 text-primary mb-3"></i>
+                <h5 class="fw-semibold">Company Management</h5>
+                <p class="text-muted">
+                    Add, update, and manage automobile companies with ease.
+                </p>
+            </div>
         </div>
+
+        <div class="col-md-4">
+            <div class="card feature-card shadow-sm p-4 h-100">
+                <i class="bi bi-car-front fs-1 text-success mb-3"></i>
+                <h5 class="fw-semibold">Vehicle Details</h5>
+                <p class="text-muted">
+                    View products, specifications, pricing, and mileage.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card feature-card shadow-sm p-4 h-100">
+                <i class="bi bi-currency-rupee fs-1 text-warning mb-3"></i>
+                <h5 class="fw-semibold">EMI Calculator</h5>
+                <p class="text-muted">
+                    Instantly calculate EMI based on loan amount and tenure.
+                </p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="col-md-4">
-        <div class="card feature-card shadow-sm p-4 h-100">
-            <i class="bi bi-car-front fs-1 text-success mb-3"></i>
-            <h5 class="fw-semibold">Vehicle Details</h5>
-            <p class="text-muted">
-                View products, specifications, pricing, and mileage.
-            </p>
-        </div>
+    <!-- CTA -->
+    <div class="text-center mt-5">
+        <h4 class="fw-bold mb-3">Start Exploring AutoHub Today</h4>
+        <a href="{% url 'companies' %}" class="btn btn-primary btn-lg px-5">
+            Get Started →
+        </a>
     </div>
 
-    <div class="col-md-4">
-        <div class="card feature-card shadow-sm p-4 h-100">
-            <i class="bi bi-currency-rupee fs-1 text-warning mb-3"></i>
-            <h5 class="fw-semibold">EMI Calculator</h5>
-            <p class="text-muted">
-                Instantly calculate EMI based on loan amount and tenure.
-            </p>
-        </div>
-    </div>
-
-</div>
-
-<!-- CTA -->
-<div class="text-center mt-5">
-    <h4 class="fw-bold mb-3">Start Exploring AutoHub Today</h4>
-    <a href="{% url 'list' %}" class="btn btn-primary btn-lg px-5">
-        Get Started →
-    </a>
 </div>
 
 {% endblock %}

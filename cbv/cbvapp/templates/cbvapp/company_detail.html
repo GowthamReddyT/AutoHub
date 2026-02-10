@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Companies{% endblock %}
+{% block title %}Company Details{% endblock %}
 {% block content %}
 
 <style>
@@ -14,29 +14,18 @@
 
     .product-card {
         position: relative;
+        transition: 0.3s ease;
     }
 
     .product-card:hover {
         box-shadow: 0 10px 20px rgba(0,0,0,0.12);
         transform: translateY(-4px);
-        transition: 0.3s ease;
     }
 
     .product-img {
         height: 180px;
         object-fit: cover;
         border-radius: 10px;
-    }
-
-    /* 🔹 ACTION BUTTONS */
-    .action-btns {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-    }
-
-    .action-btns a {
-        margin-left: 6px;
     }
 </style>
 
@@ -49,7 +38,7 @@
             <h2 class="mb-0">{{ company_details.name }} Details</h2>
         </div>
 
-        <!-- 🔹 EDIT / DELETE -->
+        <!-- EDIT / DELETE -->
         <div>
             <a href="{% url 'edit_company' company_details.id %}"
                class="btn btn-outline-warning btn-sm me-2">
@@ -97,24 +86,33 @@
     </div>
 
     <div class="row g-4">
+
         {% for product in company_details.product_set.all %}
         <div class="col-lg-4 col-md-6">
             <div class="card product-card shadow-sm h-100">
                 <div class="card-body">
 
-                    {% if product.pro_img %}
-                        <img src="{{ product.pro_img.url }}"
-                             class="img-fluid product-img mb-3">
-                    {% else %}
-                        <div class="d-flex justify-content-center align-items-center bg-light mb-3"
-                             style="height:180px;border-radius:10px;">
-                            <i class="bi bi-image fs-1 text-muted"></i>
-                        </div>
-                    {% endif %}
+                    <!-- CLICKABLE IMAGE -->
+                    <a href="{% url 'product_detail' product.id %}"
+                       class="text-decoration-none">
+                        {% if product.pro_img %}
+                            <img src="{{ product.pro_img.url }}"
+                                 class="img-fluid product-img mb-3">
+                        {% else %}
+                            <div class="d-flex justify-content-center align-items-center bg-light mb-3"
+                                 style="height:180px;border-radius:10px;">
+                                <i class="bi bi-image fs-1 text-muted"></i>
+                            </div>
+                        {% endif %}
+                    </a>
 
+                    <!-- CLICKABLE NAME -->
                     <h5 class="mb-3">
-                        <i class="bi bi-car-front-fill text-primary me-1"></i>
-                        {{ product.product_name }}
+                        <a href="{% url 'product_detail' product.id %}"
+                           class="text-decoration-none text-dark">
+                            <i class="bi bi-car-front-fill text-primary me-1"></i>
+                            {{ product.product_name }}
+                        </a>
                     </h5>
 
                     <p class="mb-1">
@@ -157,7 +155,9 @@
             <p class="mt-2">No products found for this company</p>
         </div>
         {% endfor %}
+
     </div>
 
 </div>
+
 {% endblock %}

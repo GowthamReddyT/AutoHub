@@ -36,10 +36,11 @@ class Interior(models.Model):
     image = models.ImageField(upload_to="products/interior/")
 
     def __str__(self):
-        return f"{self.product.Product_Name} Interior"
+        return f"{self.product.product_name} Interior"
 
 
-# ✅ NEW MODEL – Exterior
+
+
 class Exterior(models.Model):
     product = models.ForeignKey(
         Product,
@@ -49,4 +50,5 @@ class Exterior(models.Model):
     image = models.ImageField(upload_to="products/exterior/")
 
     def __str__(self):
-        return f"{self.product.Product_Name} Exterior"
+        return f"{self.product.product_name} Exterior"
+
