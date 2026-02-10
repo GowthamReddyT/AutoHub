@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block title %}Companies{% endblock %}
+{% block content %}
+
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .info-card, .product-card {
+            border: none;
+            border-radius: 14px;
+        }
+        .product-card {
+            position: relative;
+        }
+        .product-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            transition: 0.3s ease;
+        }
+        .product-img {
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    </style>
+
+
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="d-flex align-items-center mb-4">
+        <i class="bi bi-buildings-fill fs-2 text-primary me-2"></i>
+        <h2 class="mb-0">{{ company_details.name }} Details</h2>
+    </div>
+
+    <!-- Company Info -->
+    <div class="card info-card shadow-sm mb-5">
+        <div class="card-body">
+            <div class="row text-center">
+
+                <div class="col-md-4 mb-3">
+                    <i class="bi bi-person-circle fs-3 text-primary"></i>
+                    <h6 class="mt-2">CEO</h6>
+                    <p class="text-muted mb-0">{{ company_details.ceo }}</p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <i class="bi bi-calendar2-check fs-3 text-success"></i>
+                    <h6 class="mt-2">Established</h6>
+                    <p class="text-muted mb-0">{{ company_details.est_year }}</p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <i class="bi bi-geo-alt-fill fs-3 text-danger"></i>
+                    <h6 class="mt-2">Origin</h6>
+                    <p class="text-muted mb-0">{{ company_details.origin }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Products -->
+    <div class="d-flex align-items-center mb-3">
+    <i class="bi bi-car-front-fill fs-3 text-primary me-2"></i>
+    <h4 class="mb-0">Products</h4>
+</div>
+
+    <div class="row g-4">
+        {% for product in company_details.product_set.all %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card product-card shadow-sm h-100">
+                <div class="card-body">
+
+                    <!-- PRODUCT IMAGE (ADDED) -->
+                    {% if product.pro_img %}
+                        <img src="{{ product.pro_img.url }}" class="img-fluid product-img mb-3">
+                    {% else %}
+                        <div class="d-flex justify-content-center align-items-center bg-light mb-3"
+                             style="height:180px;border-radius:10px;">
+                            <i class="bi bi-image fs-1 text-muted"></i>
+                        </div>
+                    {% endif %}
+
+                    <h5 class="mb-3">
+                        <i class="bi bi-car-front-fill text-primary me-1"></i>
+                        {{ product.product_name }}
+                    </h5>
+
+                    <p class="mb-1">
+                        <i class="bi bi-palette-fill text-secondary me-2"></i>
+                        <strong>Color:</strong> {{ product.color }}
+                    </p>
+
+                    <p class="mb-1">
+                        <i class="bi bi-currency-rupee text-success me-2"></i>
+                        <strong>Price:</strong> {{ product.price }}
+                    </p>
+
+                    <p class="mb-1">
+                        <i class="bi bi-fuel-pump-fill text-danger me-2"></i>
+                        <strong>Fuel:</strong> {{ product.fuel_type }}
+                    </p>
+
+                    <p class="mb-1">
+                        <i class="bi bi-speedometer2 text-warning me-2"></i>
+                        <strong>CC:</strong> {{ product.cc }}
+                    </p>
+
+                    <p class="mb-1">
+                        <i class="bi bi-graph-up-arrow text-info me-2"></i>
+                        <strong>Mileage:</strong> {{ product.Mileage }}
+                    </p>
+
+                    <!-- INFO ICON (BOTTOM RIGHT) -->
+                    <a href="#"
+                       class="position-absolute bottom-0 end-0 m-3 text-decoration-none">
+                        <i class="bi bi-info-circle-fill fs-4 text-primary"></i>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center text-muted">
+            <i class="bi bi-exclamation-circle fs-2"></i>
+            <p class="mt-2">No products found for this company</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

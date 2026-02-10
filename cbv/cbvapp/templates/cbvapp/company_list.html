@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Companies{% endblock %}
+{% block content %}
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .company-card {
+            border: none;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .company-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+
+        .company-img {
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #212529;
+            text-decoration: none;
+        }
+
+        .company-name:hover {
+            color: #0d6efd;
+        }
+    </style>
+
+
+<div class="container py-5">
+    <div class="d-flex align-items-center mb-4">
+        <i class="bi bi-buildings fs-3 text-primary me-2"></i>
+        <h2 class="mb-0">All Company List</h2>
+    </div>
+
+    <div class="row g-4">
+        {% for i in companies %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card company-card h-100 p-3">
+
+                {% if i.image %}
+                    <img src="{{ i.image.url }}" class="company-img mb-3" alt="{{ i.name }}">
+                {% else %}
+                    <div class="d-flex justify-content-center align-items-center bg-light rounded mb-3" style="height:180px;">
+                        <i class="bi bi-image text-muted fs-1"></i>
+                    </div>
+                {% endif %}
+
+                <h5 class="mb-2">
+                    <a href="{% url 'detail' i.id %}" class="company-name">
+                        <i class="bi bi-building me-1 text-primary"></i>
+                        {{ i.name }}
+                    </a>
+                </h5>
+
+                <a href="{% url 'detail' i.id %}" class="btn btn-outline-primary btn-sm mt-auto">
+                    View Details <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+        </div>
+        {% empty %}
+            <div class="col-12 text-center text-muted">
+                <i class="bi bi-exclamation-circle fs-3"></i>
+                <p class="mt-2">No companies found</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

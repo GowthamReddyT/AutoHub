@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    body{
+        background: linear-gradient(135deg,#eef2f7,#d9e4f5);
+    }
+
+    .main-card{
+        border-radius:20px;
+    }
+
+    .gallery img{
+        height:160px;
+        width:100%;
+        object-fit:cover;
+        border-radius:12px;
+        transition:0.3s;
+    }
+
+    .gallery img:hover{
+        transform:scale(1.05);
+    }
+</style>
+
+<div class="container py-5">
+
+    <!-- Product Info -->
+    <div class="card main-card shadow p-5 mb-5">
+
+        <div class="row">
+
+            <div class="col-md-5 text-center">
+                <img src="{{ product.image.url }}"
+                     class="img-fluid rounded shadow">
+            </div>
+
+            <div class="col-md-7">
+
+                <h2 class="fw-bold text-primary">
+                    {{ product.Product_Name }}
+                </h2>
+
+                <hr>
+
+                <p><b>Company:</b> {{ product.company.Name }}</p>
+                <p><b>Price:</b> ₹ {{ product.price }}</p>
+                <p><b>Color:</b> {{ product.color }}</p>
+                <p><b>Fuel:</b> {{ product.fuel_type }}</p>
+                <p><b>CC:</b> {{ product.cc }}</p>
+                <p><b>Mileage:</b> {{ product.miliege }} kmpl</p>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Interior -->
+    <h4 class="fw-bold mb-3">🚗 Interior</h4>
+
+    <div class="row g-3 gallery mb-5">
+        {% for img in product.interiors.all %}
+            <div class="col-md-3">
+                <img src="{{ img.image.url }}">
+            </div>
+        {% empty %}
+            <p class="text-muted">No interior images available</p>
+        {% endfor %}
+    </div>
+
+
+    <!-- Exterior -->
+    <h4 class="fw-bold mb-3">🏁 Exterior</h4>
+
+    <div class="row g-3 gallery">
+        {% for img in product.exteriors.all %}
+            <div class="col-md-3">
+                <img src="{{ img.image.url }}">
+            </div>
+        {% empty %}
+            <p class="text-muted">No exterior images available</p>
+        {% endfor %}
+    </div>
+
+
+    <div class="mt-4">
+        <a href="javascript:history.back()" class="btn btn-secondary">
+            ← Back
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body{
+        background: linear-gradient(135deg,#eef2f7,#d9e4f5);
+    }
+
+    .emi-card{
+        border-radius:20px;
+    }
+
+    .readonly{
+        background:#f1f3f5;
+        font-weight:600;
+    }
+
+    .result-box{
+        background:#e9f7ef;
+        border-radius:15px;
+        padding:15px;
+        font-size:1.2rem;
+        font-weight:bold;
+        color:#198754;
+    }
+</style>
+
+<div class="container py-5">
+
+    <div class="card emi-card shadow-lg p-5 col-md-6 mx-auto">
+
+        <h3 class="text-center text-primary fw-bold mb-4">
+            💳 EMI Calculator
+        </h3>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Product Name</label>
+                <input type="text" class="form-control readonly" value="{{ product.Product_Name }}" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Company</label>
+                <input type="text" class="form-control readonly" value="{{ product.company.Name }}" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Price (₹)</label>
+                <input type="text" class="form-control readonly" value="{{ product.price }}" readonly>
+            </div>
+
+            <!-- Loan Amount -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Loan Amount (₹)</label>
+                <input type="number" name="loan_amount" value="{{ loan_amount }}" class="form-control" required>
+            </div>
+
+            <!-- Tenure -->
+            <div class="mb-4">
+                <label class="form-label fw-bold">Tenure (Years)</label>
+
+                <select name="tenure" class="form-select" required>
+                    <option value="">Select Years</option>
+                    <option value="1" {% if tenure == 1 %}selected{% endif %}>1 Year</option>
+                    <option value="2" {% if tenure == 2 %}selected{% endif %}>2 Years</option>
+                    <option value="3" {% if tenure == 3 %}selected{% endif %}>3 Years</option>
+                    <option value="4" {% if tenure == 4 %}selected{% endif %}>4 Years</option>
+                    <option value="5" {% if tenure == 5 %}selected{% endif %}>5 Years</option>
+                    <option value="7" {% if tenure == 7 %}selected{% endif %}>7 Years</option>
+                    <option value="10" {% if tenure == 10 %}selected{% endif %}>10 Years</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary w-100">
+                Calculate EMI
+            </button>
+        </form>
+
+
+       {% if emi %}
+        <hr>
+        <div class="card shadow-sm p-3 mt-3 text-center bg-light">
+            <h5 class="fw-bold text-success">Monthly EMI</h5>
+            <h3 class="fw-bold">₹ {{ emi }}</h3>
+            <p class="mb-0">Loan: ₹ {{ loan_amount }} |Tenure: {{ tenure }} years</p>
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-3">
+            <a href="javascript:history.back()" class="btn btn-secondary">
+                ← Back
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
